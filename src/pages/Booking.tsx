@@ -110,7 +110,7 @@ function Booking() {
       if (Object.keys(updateData).length === 0) {
         return;
       }
-      const response = await axios.patch(`https://atl-luxe-limo-server.onrender.com/book/${id}`, updateData, {
+      const response = await axios.patch(`https://abc-limo-server.onrender.com/book/${id}`, updateData, {
         withCredentials: true,
       });
       if (response.status === 200) {
