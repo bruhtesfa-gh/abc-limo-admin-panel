@@ -1,8 +1,11 @@
 import * as ax from "axios";
 const BASE_URL = "https://abc-limo-server.onrender.com";
-const axios = ax.default.create({
+let axios = ax.default.create({
   baseURL: BASE_URL,
   withCredentials: true,
+  headers: {
+    "Authorization": "Bearer " + localStorage.getItem("token"),
+  },
 });
 export async function getMe() {
   const { data } = await axios.get("/me");
@@ -19,13 +22,26 @@ export async function login({
   email: string;
   password: string;
 }) {
-  const { data } = await axios.post(
+  const { data, status } = await axios.post(
     "/auth/login",
     { email, password },
     {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token"),
+      },
       withCredentials: true,
     }
   );
+  if (status === 200) {
+    localStorage.setItem("token", data.data?.token);
+    axios = ax.default.create({
+      baseURL: BASE_URL,
+      withCredentials: true,
+      headers: {
+        "Authorization": "Bearer " + data.data?.token,
+      },
+    });
+  }
   return data;
 }
 
@@ -286,7 +302,17 @@ export async function deleteReservation(id: string) {
 /*API REQUEST RELATED TO user */
 
 export async function logout() {
-  const { data } = await axios.post(`/auth/logout`);
+  const { data, status } = await axios.post(`/auth/logout`);
+  if (status === 200) {
+    localStorage.removeItem("token");
+    axios = ax.default.create({
+      baseURL: BASE_URL,
+      withCredentials: true,
+      headers: {
+        "Authorization": "",
+      },
+    });
+  }
   return data;
 }
 
