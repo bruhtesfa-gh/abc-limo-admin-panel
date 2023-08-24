@@ -244,7 +244,7 @@ function Vehicle() {
                   </div>
                   <div className="mb-3 col-md-6">
                     <label htmlFor="costPerday" className="form-label">
-                      Cost perday
+                      Hourly Rate
                     </label>
                     <input
                       type="text"
