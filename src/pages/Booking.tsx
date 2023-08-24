@@ -13,10 +13,6 @@ const vehicle = [
     key: "name",
   },
   {
-    title: "Model",
-    key: "model",
-  },
-  {
     title: "Price per day",
     key: "pricePerDay",
   },
@@ -57,6 +53,10 @@ const customer = [
   {
     title: "to Address",
     key: "toAddress",
+  },
+  {
+    title: "Driver Gender Preference",
+    key: "driverGender",
   },
   {
     title: "Lugggage Count",
@@ -100,8 +100,7 @@ function Booking() {
 
   const handleUpdate = async () => {
     try {
-      let updateData = {
-      } as any;
+      let updateData = {} as any;
       if (status) updateData.status = status;
       if (fromAddress !== "") updateData.fromAddress = fromAddress;
       if (toAddress !== "") updateData.toAddress = toAddress;
@@ -110,17 +109,19 @@ function Booking() {
       if (Object.keys(updateData).length === 0) {
         return;
       }
-      const response = await axios.patch(`https://abc-limo-server.onrender.com/book/${id}`, updateData, {
-        withCredentials: true,
-      });
+      const response = await axios.patch(
+        `https://abc-limo-server.onrender.com/book/${id}`,
+        updateData,
+        {
+          withCredentials: true,
+        }
+      );
       if (response.status === 200) {
         navigate("/reservations");
       }
       // mutation.mutate(updateData);
       //return data;
-    } catch (error: any) {
-
-    }
+    } catch (error: any) {}
   };
   useEffect(() => {
     if (data) {
@@ -187,10 +188,11 @@ function Booking() {
                     placeholder="Pick-up Date"
                     min={new Date().toISOString().split(".")[0]}
                     onChange={(e) => setJourneyDate(e.target.value)}
-                    defaultValue={new Date(data?.journeyDate).toISOString().split(".")[0]}
+                    defaultValue={
+                      new Date(data?.journeyDate).toISOString().split(".")[0]
+                    }
                   />
                 </div>
-
               </div>
               <div className="mb-3 col-md-2">
                 <button
@@ -205,14 +207,20 @@ function Booking() {
                 <div className="col">
                   <h5 className="fw-bold py-3 mb-2">Customer Detail</h5>
                   {customer.map(({ title, key }) => {
-                    return <DetailRow key={key} title={title} value={data[key]} />;
+                    return (
+                      <DetailRow key={key} title={title} value={data[key]} />
+                    );
                   })}
                 </div>
                 <div className="col">
                   <h5 className="fw-bold py-3 mb-2">Vehicle Detail</h5>
                   {vehicle.map(({ title, key }) => {
                     return (
-                      <DetailRow key={key} title={title} value={data["vehicle"][key]} />
+                      <DetailRow
+                        key={key}
+                        title={title}
+                        value={data["vehicle"][key]}
+                      />
                     );
                   })}
                 </div>
@@ -261,7 +269,11 @@ function Select({
       >
         {options.map((opt: string) => {
           return (
-            <option key={opt} style={{ textTransform: "capitalize" }} value={opt}>
+            <option
+              key={opt}
+              style={{ textTransform: "capitalize" }}
+              value={opt}
+            >
               {opt}
             </option>
           );
