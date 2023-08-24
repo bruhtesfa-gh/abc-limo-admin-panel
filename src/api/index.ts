@@ -1,10 +1,10 @@
 import * as ax from "axios";
-const BASE_URL = "https://abc-limo-server.onrender.com";
+export const BASE_URL = "https://abc-limo-server.onrender.com";
 let axios = ax.default.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
-    "Authorization": "Bearer " + localStorage.getItem("token"),
+    Authorization: "Bearer " + localStorage.getItem("token"),
   },
 });
 export async function getMe() {
@@ -27,7 +27,7 @@ export async function login({
     { email, password },
     {
       headers: {
-        "Authorization": "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       withCredentials: true,
     }
@@ -38,7 +38,7 @@ export async function login({
       baseURL: BASE_URL,
       withCredentials: true,
       headers: {
-        "Authorization": "Bearer " + data.data?.token,
+        Authorization: "Bearer " + data.data?.token,
       },
     });
   }
@@ -309,7 +309,7 @@ export async function logout() {
       baseURL: BASE_URL,
       withCredentials: true,
       headers: {
-        "Authorization": "",
+        Authorization: "",
       },
     });
   }
