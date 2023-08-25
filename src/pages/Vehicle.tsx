@@ -46,15 +46,10 @@ function Vehicle() {
     //THIS IS FOR UPDATE FORM
     if (data) {
       setValue("name", data ? data?.name : "");
-      setValue("model", data ? data?.model : "");
       setValue("description", data ? data?.description : "");
-      setValue("speed", data ? data?.speed : "");
       setValue("type", data ? data?.type : "");
       setValue("pricePerDay", data ? data?.pricePerDay : "");
       setValue("passengerSize", data ? data?.passengerSize : "");
-      setValue("automatic", data ? Boolean(data?.automatic) : false);
-      setValue("heatedSeat", data ? Boolean(data?.heatedSeat) : false);
-      setValue("gpsNavigation", data ? Boolean(data?.gpsNavigation) : false);
     }
   }, [data]);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -74,59 +69,33 @@ function Vehicle() {
     }
   }, [fileRef.current]);
   const onSubmit = (data: any) => {
-    const {
-      name,
-      model,
-      description,
-      speed,
-      type,
-      automatic,
-      heatedSeat,
-      gpsNavigation,
-      pricePerDay,
-      passengerSize,
-      img,
-    } = data as {
-      name: string;
-      model: string;
-      description: string;
-      automatic: boolean;
-      gpsNavigation: boolean;
-      heatedSeat: boolean;
-      speed: number;
-      type: string;
-      pricePerDay: string;
-      passengerSize: string;
-      img: FileList;
-    };
+    const { name, description, type, pricePerDay, passengerSize, img } =
+      data as {
+        name: string;
+        description: string;
+        type: string;
+        pricePerDay: string;
+        passengerSize: string;
+        img: FileList;
+      };
     if (id) {
       updateMutation.mutate({
         id,
         name,
-        model,
         description,
-        speed,
         type,
         pricePerDay,
         passengerSize,
         img: img[0],
-        automatic: Number(automatic),
-        heatedSeat: Number(heatedSeat),
-        gpsNavigation: Number(gpsNavigation),
       });
     } else {
       postMutation.mutate({
         name,
-        model,
         description,
-        speed,
         type,
         pricePerDay,
         passengerSize,
         img: img[0],
-        automatic: Number(automatic),
-        heatedSeat: Number(heatedSeat),
-        gpsNavigation: Number(gpsNavigation),
       });
     }
   };
@@ -214,20 +183,6 @@ function Vehicle() {
                     />
                   </div>
                   <div className="mb-3 col-md-6">
-                    <label htmlFor="model" className="form-label">
-                      Vehicle Model
-                    </label>
-                    <input
-                      className={`form-control ${
-                        errors.model ? "border-danger" : ""
-                      }`}
-                      {...register("model")}
-                      type="text"
-                      id="model"
-                      placeholder="enter vehicle model"
-                    />
-                  </div>
-                  <div className="mb-3 col-md-6">
                     <Controller
                       name="type"
                       control={control}
@@ -271,73 +226,6 @@ function Vehicle() {
                       placeholder="20"
                       maxLength={6}
                     />
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label htmlFor="passengerSize" className="form-label">
-                      Speed
-                    </label>
-                    <input
-                      type="text"
-                      {...register("speed")}
-                      className={`form-control ${
-                        errors.speed ? "border-danger" : ""
-                      }`}
-                      id="speed"
-                      placeholder="60"
-                      maxLength={6}
-                    />
-                  </div>
-                  <div className="mb-3 col-md-6 col">
-                    {/* <Controller
-                      name="automatic"
-                      control={control}
-                      render={({ field }) => (
-                        <CheckBox
-                          {...field}
-                          id={"automatic"}
-                          label={"Automatic"}
-                        />
-                      )}
-                    /> */}
-                    <div className="form-check mt-3">
-                      <input
-                        type="checkbox"
-                        id="automatic"
-                        className="form-check-input"
-                        {...register("automatic")}
-                      />
-                      <label className="form-check-label" htmlFor={"automatic"}>
-                        Automatic
-                      </label>
-                    </div>
-                    <div className="form-check mt-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="gpsNavigation"
-                        {...register("gpsNavigation")}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor={"gpsNavigation"}
-                      >
-                        GPS Navigation
-                      </label>
-                    </div>
-                    <div className="form-check mt-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="heatedSeat"
-                        {...register("heatedSeat")}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor={"heatedSeat"}
-                      >
-                        Heated Seat
-                      </label>
-                    </div>
                   </div>
                 </div>
 
