@@ -10,6 +10,8 @@ import LoginPage from "../pages/LoginPage";
 import Vehicle from "../pages/Vehicle";
 import Vehicles from "../pages/Vehicles";
 import ErrorPage from "../pages/ErrorPage";
+import Services from "../pages/Services";
+import Service from "../pages/Service";
 
 function Router({ isAuth }: { isAuth: boolean }) {
   return (
@@ -25,6 +27,8 @@ function Router({ isAuth }: { isAuth: boolean }) {
             <Route path="reservation/:id" element={<Booking />} />
             <Route path="vehicles" element={<Vehicles />} />
             <Route path="vehicle/:id?" element={<Vehicle />} />
+            <Route path="services" element={<Services />} />
+            <Route path="service/:id?" element={<Service />} />
             {/* <Route path="/" element={<Form />} /> */}
           </Route>
         ) : (
