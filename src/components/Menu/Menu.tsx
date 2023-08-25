@@ -44,7 +44,7 @@ function Menu() {
         </NavLink>
         <NavLink to="/services" className="menu-item ">
           <div className="menu-link">
-            <i className="menu-icon tf-icons bx bxl-blogger"></i>
+            <i className="menu-icon tf-icons bx bx-cog"></i>
             <div data-i18n="Analytics">Service</div>
           </div>
         </NavLink>
