@@ -11,12 +11,12 @@ function LoginPage() {
   const mutation = useMutation({
     mutationKey: "login",
     mutationFn: login,
-    onError(error, variables, context) {
+    onError(error: any, variables: any, context: any) {
       if (error instanceof AxiosError) {
         showErrorToast(error.response?.data["message"]);
       }
     },
-    onSuccess: async (data, variables, context) => {
+    onSuccess: async (data: any, variables: any, context: any) => {
       await queryClient.refetchQueries("getme");
     },
   });

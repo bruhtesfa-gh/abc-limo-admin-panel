@@ -26,7 +26,7 @@ function Bookings() {
       return getReservationS(pageParam);
     },
     {
-      getNextPageParam: (lastPage, pages) => {
+      getNextPageParam: (lastPage: any, pages: any) => {
         if (lastPage.length) {
           return pages.length + 1;
         }
@@ -63,7 +63,7 @@ function Bookings() {
               </tr>
             </thead>
             <tbody className="table-border-bottom-0">
-              {data?.pages.map((reservations: Book[], i) => {
+              {data?.pages.map((reservations: Book[], i: number) => {
                 return reservations.map((reservation: Book, j) => {
                   return (
                     <TableRow
