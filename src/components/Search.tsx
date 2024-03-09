@@ -30,15 +30,15 @@ function Search() {
       id="layout-navbar"
     >
       <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-        <a
+        <button
           onClick={(e) => {
             document.documentElement.classList.toggle("layout-menu-expanded");
           }}
-          className="nav-item nav-link px-0 me-xl-4"
-          href="javascript:void(0)"
+          className="nav-item nav-link px-0 me-xl-4 btn"
+
         >
           <i className="bx bx-menu bx-sm"></i>
-        </a>
+        </button>
       </div>
 
       <div
@@ -56,9 +56,8 @@ function Search() {
 
           {/* <!-- User --> */}
           <li className="nav-item navbar-dropdown dropdown-user dropdown">
-            <a
-              className="nav-link dropdown-toggle hide-arrow"
-              href="javascript:void(0);"
+            <button
+              className="nav-link dropdown-toggle hide-arrow btn"
               data-bs-toggle="dropdown"
             >
               <div className="avatar border-dark border-1">
@@ -68,7 +67,7 @@ function Search() {
                   className="w-px-40 h-auto rounded-circle"
                 />
               </div>
-            </a>
+            </button>
             <ul className="dropdown-menu dropdown-menu-end">
               <li>
                 <Link to="/account" className="dropdown-item">

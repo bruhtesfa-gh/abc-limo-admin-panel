@@ -70,7 +70,7 @@ function Dashboard({ }) {
       <div className="row mb-5">
         {keys.map(({ key, label }, index) => {
           return (
-            <div className="col-md-6 col-lg-4 mt-4">
+            <div className="col-md-6 col-lg-4 mt-4" key={key}>
               <Link to={label.includes("Reservations") ? "/reservations" : label.includes("Blogs") ? "/blogs" : "/vehicles"} style={{ color: "inherit" }}>
                 <div className="card">
                   {index === 0 && data[key] > 0 && <div style={{

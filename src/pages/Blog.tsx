@@ -43,16 +43,18 @@ function Blog() {
   const { ref, ...rest } = register("blogImg");
   const postMutation = useMutation("postblog", postBlog);
   const updateMutation = useMutation("updateblog", updateBlog);
-  if (postMutation.data || updateMutation.data) {
-    (async () => {
-      await queryClient.refetchQueries("blogs");
-      navigate("/blogs");
-    })();
-  }
+  useEffect(() => {
+    if (postMutation.data || updateMutation.data)
+      queryClient.refetchQueries("blogs").then(() => {
+      }).finally(() => {
+        navigate("/blogs", { replace: true });
+      });
+  }, [postMutation, updateMutation])
   useEffect(() => {
     if (fileRef.current) {
       showImagePreview(fileRef.current, imgRef.current!);
     }
+
   }, [fileRef.current]);
   const onSubmit = (data: any) => {
     const { blogTitle, blogContent, blogImg } = data as {
@@ -126,9 +128,8 @@ function Blog() {
                           fileRef.current = iref;
                         }}
                         // ref={fileRef}
-                        className={`form-control ${
-                          errors.blogImg ? "border-danger" : ""
-                        }`}
+                        className={`form-control ${errors.blogImg ? "border-danger" : ""
+                          }`}
                         aria-describedby="inputGroupFileAddon04"
                         aria-label="Upload"
                         accept="image/*"
@@ -151,9 +152,8 @@ function Blog() {
                       <input
                         {...register("blogTitle")}
                         type="text"
-                        className={`form-control ${
-                          errors.blogTitle ? "border-danger" : ""
-                        }`}
+                        className={`form-control ${errors.blogTitle ? "border-danger" : ""
+                          }`}
                         id="basic-icon-default-fullname"
                         placeholder="blog title"
                         aria-label="blog title"
@@ -171,9 +171,8 @@ function Blog() {
                   </label>
                   <textarea
                     {...register("blogContent")}
-                    className={`form-control  ${
-                      errors.blogContent ? "border-danger" : ""
-                    }`}
+                    className={`form-control  ${errors.blogContent ? "border-danger" : ""
+                      }`}
                     id="exampleFormControlTextarea1"
                     rows={23}
                     placeholder="blog content here...."

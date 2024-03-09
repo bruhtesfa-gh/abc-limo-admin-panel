@@ -1,5 +1,5 @@
 import * as ax from "axios";
-const BASE_URL = "http://localhost:4000";
+export const BASE_URL = "http://localhost:4000";
 let axios = ax.default.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -122,7 +122,7 @@ export async function postService({
   img: File;
 }) {
   const { data } = await axios.post(
-    "/service",
+    "/services",
     { title, content, img },
     {
       headers: {
@@ -145,7 +145,7 @@ export async function updateService({
 }) {
   if (img) {
     const { data } = await axios.patch(
-      `/service/${id}`,
+      `/services/${id}`,
       { title, content, img },
       {
         headers: {
@@ -156,7 +156,7 @@ export async function updateService({
     return data;
   } else {
     const { data } = await axios.patch(
-      `/service/${id}`,
+      `/services/${id}`,
       { title, content },
       {
         headers: {
@@ -168,15 +168,19 @@ export async function updateService({
   }
 }
 export async function getServices(page = 1) {
-  const { data } = await axios.get(`/service?page=${page}`);
+  const { data } = await axios.get(`/services?page=${page}`);
+  return data;
+}
+export async function getService(id: string) {
+  const { data } = await axios.get(`/services/${id}`);
   return data;
 }
 export async function deleteBlog(id: string) {
-  const { data } = await axios.delete(`/service/${id}`);
+  const { data } = await axios.delete(`/blog/${id}`);
   return data;
 }
 export async function deleteService(id: string) {
-  const { data } = await axios.delete(`/service/${id}`);
+  const { data } = await axios.delete(`/services/${id}`);
   return data;
 }
 /*AP RELATED TO SERVICE END */

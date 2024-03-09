@@ -23,6 +23,21 @@ export const blogUpdateSchema = yup
   })
   .required();
 
+export const servicePostSchema = yup
+  .object({
+    serviceTitle: yup.string().required(),
+    serviceContent: yup.string().required(),
+    serviceImg: imgFileSchema,
+  })
+  .required();
+export const serviceUpdateSchema = yup
+  .object({
+    serviceTitle: yup.string().required(),
+    serviceContent: yup.string().required(),
+    serviceImg: yup.mixed(),
+  })
+  .required();
+
 export const vehiclePostSchema = yup
   .object({
     name: yup.string().required(),

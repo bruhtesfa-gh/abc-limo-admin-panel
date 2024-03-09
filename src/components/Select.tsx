@@ -10,7 +10,9 @@ function Select({
   label: string;
   selectLabel: string;
   error: FieldError | undefined;
+  rest: any
 }) {
+  console.log(rest)
   return (
     <>
       <label htmlFor="currency" className="form-label">
@@ -24,7 +26,7 @@ function Select({
         <option value="">{selectLabel}</option>
         {options.map((opt: string) => {
           return (
-            <option style={{ textTransform: "capitalize" }} value={opt}>
+            <option key={opt} style={{ textTransform: "capitalize" }} value={opt}>
               {opt}
             </option>
           );

@@ -1,9 +1,9 @@
 //@ts-nocheck
-import { getBlog, postService, updateService } from "../api";
+import { getBlog, getService, postService, updateService } from "../api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { blogPostSchema, blogUpdateSchema } from "../utils/schema";
+import { servicePostSchema, serviceUpdateSchema } from "../utils/schema";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { showImagePreview } from "../utils";
@@ -14,8 +14,8 @@ function Service() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading } = useQuery(
-    ["service", id],
-    () => getBlog(id as string),
+    ["services", id],
+    () => getService(id as string),
     {
       enabled: Boolean(id),
     }
@@ -27,26 +27,26 @@ function Service() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      blogTitle: "",
-      blogImg: "",
-      blogContent: "",
+      serviceTitle: "",
+      serviceImg: "",
+      serviceContent: "",
     },
-    resolver: yupResolver(id ? blogUpdateSchema : blogPostSchema),
+    resolver: yupResolver(id ? serviceUpdateSchema : servicePostSchema),
   });
   useEffect(() => {
     //THIS IS FOR UPDATE FORM
-    setValue("blogTitle", data ? data?.title : "");
-    setValue("blogContent", data ? data?.content : "");
+    setValue("serviceTitle", data ? data?.title : "");
+    setValue("serviceContent", data ? data?.content : "");
   }, [data]);
   const imgRef = useRef<HTMLImageElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const { ref, ...rest } = register("blogImg");
-  const postMutation = useMutation("postblog", postService);
-  const updateMutation = useMutation("updateblog", updateService);
+  const { ref, ...rest } = register("serviceImg");
+  const postMutation = useMutation("postservice", postService);
+  const updateMutation = useMutation("updateservice", updateService);
   if (postMutation.data || updateMutation.data) {
     (async () => {
-      await queryClient.refetchQueries("services");
       navigate("/services");
+      // await queryClient.refetchQueries("services");
     })();
   }
   useEffect(() => {
@@ -55,23 +55,23 @@ function Service() {
     }
   }, [fileRef.current]);
   const onSubmit = (data: any) => {
-    const { blogTitle, blogContent, blogImg } = data as {
-      blogTitle: string;
-      blogContent: string;
-      blogImg: FileList;
+    const { serviceTitle, serviceContent, serviceImg } = data as {
+      serviceTitle: string;
+      serviceContent: string;
+      serviceImg: FileList;
     };
     if (id) {
       updateMutation.mutate({
         id,
-        title: blogTitle,
-        content: blogContent,
-        img: blogImg[0],
+        title: serviceTitle,
+        content: serviceContent,
+        img: serviceImg[0],
       });
     } else {
       postMutation.mutate({
-        title: blogTitle,
-        content: blogContent,
-        img: blogImg[0],
+        title: serviceTitle,
+        content: serviceContent,
+        img: serviceImg[0],
       });
     }
   };
@@ -126,9 +126,8 @@ function Service() {
                           fileRef.current = iref;
                         }}
                         // ref={fileRef}
-                        className={`form-control ${
-                          errors.blogImg ? "border-danger" : ""
-                        }`}
+                        className={`form-control ${errors.serviceImg ? "border-danger" : ""
+                          }`}
                         aria-describedby="inputGroupFileAddon04"
                         aria-label="Upload"
                         accept="image/*"
@@ -149,11 +148,10 @@ function Service() {
                     <div className="input-group input-group-merge">
                       {" "}
                       <input
-                        {...register("blogTitle")}
+                        {...register("serviceTitle")}
                         type="text"
-                        className={`form-control ${
-                          errors.blogTitle ? "border-danger" : ""
-                        }`}
+                        className={`form-control ${errors.serviceTitle ? "border-danger" : ""
+                          }`}
                         id="basic-icon-default-fullname"
                         placeholder="service title"
                         aria-label="service title"
@@ -170,10 +168,9 @@ function Service() {
                     content
                   </label>
                   <textarea
-                    {...register("blogContent")}
-                    className={`form-control  ${
-                      errors.blogContent ? "border-danger" : ""
-                    }`}
+                    {...register("serviceContent")}
+                    className={`form-control  ${errors.serviceContent ? "border-danger" : ""
+                      }`}
                     id="exampleFormControlTextarea1"
                     rows={23}
                     placeholder="service content here...."

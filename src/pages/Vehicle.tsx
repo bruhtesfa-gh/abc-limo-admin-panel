@@ -59,7 +59,11 @@ function Vehicle() {
   const updateMutation = useMutation("updatevehicle", updateVehicle);
   if (postMutation.data || updateMutation.data) {
     (async () => {
-      await queryClient.refetchQueries("vehicles");
+      try {
+        await queryClient.refetchQueries("vehicles");
+      } catch (error: any) {
+        console.log(error);
+      }
       navigate("/vehicles");
     })();
   }
@@ -135,9 +139,8 @@ function Vehicle() {
                     <div className="button-wrapper">
                       <label
                         htmlFor="upload"
-                        className={`btn ${
-                          errors.img ? "btn-danger" : "btn-primary"
-                        }  me-2 mb-4`}
+                        className={`btn ${errors.img ? "btn-danger" : "btn-primary"
+                          }  me-2 mb-4`}
                         tabIndex={0}
                       >
                         <span className="d-none d-sm-block">
@@ -153,9 +156,8 @@ function Vehicle() {
                             fileRef.current = iref;
                           }}
                           // ref={fileRef}
-                          className={`form-control ${
-                            errors.img ? "border-danger" : ""
-                          }`}
+                          className={`form-control ${errors.img ? "border-danger" : ""
+                            }`}
                           aria-describedby="inputGroupFileAddon04"
                           aria-label="Upload"
                           accept="image/*"
@@ -171,9 +173,8 @@ function Vehicle() {
                       Vehicle Name
                     </label>
                     <input
-                      className={`form-control ${
-                        errors.name ? "border-danger" : ""
-                      }`}
+                      className={`form-control ${errors.name ? "border-danger" : ""
+                        }`}
                       type="text"
                       id="name"
                       {...register("name")}
@@ -203,9 +204,8 @@ function Vehicle() {
                     </label>
                     <input
                       type="text"
-                      className={`form-control ${
-                        errors.pricePerDay ? "border-danger" : ""
-                      }`}
+                      className={`form-control ${errors.pricePerDay ? "border-danger" : ""
+                        }`}
                       {...register("pricePerDay")}
                       id="costPerday"
                       placeholder="231$"
@@ -219,9 +219,8 @@ function Vehicle() {
                     <input
                       type="text"
                       {...register("passengerSize")}
-                      className={`form-control ${
-                        errors.passengerSize ? "border-danger" : ""
-                      }`}
+                      className={`form-control ${errors.passengerSize ? "border-danger" : ""
+                        }`}
                       id="passengerSize"
                       placeholder="20"
                       maxLength={6}
@@ -238,9 +237,8 @@ function Vehicle() {
                   </label>
                   <textarea
                     {...register("description")}
-                    className={`form-control ${
-                      errors.description ? "border-danger" : ""
-                    }`}
+                    className={`form-control ${errors.description ? "border-danger" : ""
+                      }`}
                     id="exampleFormControlTextarea1"
                     rows={5}
                     placeholder="vehicle description here...."

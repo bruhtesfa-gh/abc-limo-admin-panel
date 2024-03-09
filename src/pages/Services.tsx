@@ -4,8 +4,8 @@ import { useInfiniteQuery } from "react-query";
 import { deleteService, getServices } from "../api";
 import { useInView } from "react-intersection-observer";
 import DeleteConfirmationModal from "../components/Menu/DeleteConfirmationModal";
-import BlogCard from "../components/Cards/BlogCard";
-import { Blog } from "../components/Model/Blog";
+import ServiceCard from "../components/Cards/ServiceCard";
+import { Service } from "../components/Model/Service";
 import { FullScreenSpinner } from "../components/Spinner";
 
 function Services() {
@@ -51,12 +51,12 @@ function Services() {
         </li>
       </ul>
       <div className="row mb-5">
-        {data?.pages.map((blogs: Blog[]) => {
-          return blogs.map((blog: Blog) => {
+        {data?.pages.map((services: Service[]) => {
+          return services.map((service: Service) => {
             return (
-              <BlogCard
-                key={blog.id}
-                blog={blog}
+              <ServiceCard
+                key={service.id}
+                service={service}
                 setDeleteModalId={setDeleteModalId}
               />
             );

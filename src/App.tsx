@@ -9,7 +9,7 @@ function App() {
     getMe,
     {
       retry: false,
-      onSuccess: (data) => {},
+      onSuccess: (data) => { },
       onError(err) {
         // if (err instanceof AxiosError) {
         //   showErrorToast(err.response?.data["message"]);

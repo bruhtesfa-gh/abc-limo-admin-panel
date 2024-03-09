@@ -16,15 +16,15 @@ function MenuLogo() {
         </span>
       </Link>
 
-      <a
+      <button
         onClick={(e) => {
           document.documentElement.classList.toggle("layout-menu-expanded");
         }}
-        href="javascript:void(0);"
+
         className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
       >
         <i className="bx bx-chevron-left bx-sm align-middle"></i>
-      </a>
+      </button>
     </div>
   );
 }
