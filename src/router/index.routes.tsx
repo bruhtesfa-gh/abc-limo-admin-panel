@@ -28,7 +28,7 @@ function Router({ isAuth }: { isAuth: boolean }) {
             <Route path="vehicles" element={<Vehicles />} />
             <Route path="vehicle/:id?" element={<Vehicle />} />
             <Route path="services" element={<Services />} />
-            <Route path="service/:id?" element={<Service />} />
+            <Route path="services/:id?" element={<Service />} />
             {/* <Route path="/" element={<Form />} /> */}
           </Route>
         ) : (
