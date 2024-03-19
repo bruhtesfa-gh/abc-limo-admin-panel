@@ -32,7 +32,7 @@ function ServiceCard({
                     </p>
                 </div>
                 <div className="card-body">
-                    <Link to={`/services/${service.id}`} className="card-link">
+                    <Link to={`/service/${service.id}`} className="card-link">
                         Edit
                     </Link>
                     <button
