@@ -45,7 +45,7 @@ function Services() {
       </h4>
       <ul className="nav nav-pills flex-column flex-md-row mb-3">
         <li className="nav-item">
-          <Link to="/service" className="nav-link active">
+          <Link to="/services" className="nav-link active">
             <i className="bx bx-plus me-1"></i> Post
           </Link>
         </li>
