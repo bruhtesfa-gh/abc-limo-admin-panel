@@ -73,6 +73,7 @@ function Vehicle() {
     }
   }, [fileRef.current]);
   const onSubmit = (data: any) => {
+    data.description = data.description ? data.description : " ";
     const { name, description, type, pricePerDay, passengerSize, img } =
       data as {
         name: string;
@@ -200,7 +201,7 @@ function Vehicle() {
                   </div>
                   <div className="mb-3 col-md-6">
                     <label htmlFor="costPerday" className="form-label">
-                      Hourly Rate
+                      Luggage Size
                     </label>
                     <input
                       type="text"
@@ -208,8 +209,8 @@ function Vehicle() {
                         }`}
                       {...register("pricePerDay")}
                       id="costPerday"
-                      placeholder="231$"
-                      maxLength={6}
+                      placeholder="3"
+                      maxLength={2}
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -241,6 +242,7 @@ function Vehicle() {
                       }`}
                     id="exampleFormControlTextarea1"
                     rows={5}
+                    defaultValue={""}
                     placeholder="vehicle description here...."
                   ></textarea>
                 </div>

@@ -41,7 +41,7 @@ export const serviceUpdateSchema = yup
 export const vehiclePostSchema = yup
   .object({
     name: yup.string().required(),
-    description: yup.string().required(),
+    description: yup.string(),
     type: yup.string().oneOf(["SUV", "BUS", "VAN", "SEDAN"]).required(),
     pricePerDay: yup.number().required(),
     passengerSize: yup.number().required(),
@@ -52,7 +52,7 @@ export const vehiclePostSchema = yup
 export const vehicleUpdateSchema = yup
   .object({
     name: yup.string().required(),
-    description: yup.string().required(),
+    description: yup.string(),
     type: yup.string().oneOf(["SUV", "BUS", "VAN", "SEDAN"]).required(),
     pricePerDay: yup.number().required(),
     passengerSize: yup.number().required(),

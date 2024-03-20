@@ -13,7 +13,7 @@ const vehicle = [
     key: "name",
   },
   {
-    title: "Price per day",
+    title: "Luggage Size",
     key: "pricePerDay",
   },
   {
@@ -54,10 +54,10 @@ const customer = [
     title: "to Address",
     key: "toAddress",
   },
-  {
-    title: "Driver Gender Preference",
-    key: "driverGender",
-  },
+  // {
+  //   title: "Driver Gender Preference",
+  //   key: "driverGender",
+  // },
   {
     title: "Lugggage Count",
     key: "luggageCount",
@@ -109,6 +109,8 @@ function Booking() {
       if (Object.keys(updateData).length === 0) {
         return;
       }
+      console.log(updateData);
+      return;
       const response = await axios.patch(`${BASE_URL}/book/${id}`, updateData, {
         withCredentials: true,
       });
@@ -117,7 +119,7 @@ function Booking() {
       }
       // mutation.mutate(updateData);
       //return data;
-    } catch (error: any) {}
+    } catch (error: any) { }
   };
   useEffect(() => {
     if (data) {
@@ -174,20 +176,37 @@ function Booking() {
                     defaultValue={data?.toAddress}
                   />
                 </div>
-                {/* lets add pick-up date inpute */}
-                <div className="mb-3 col-md-2">
+                {/* let's add pick-up date input */}
+                <div className="mb-3 col-md-4">
                   <label className="form-label">Pick-up Date</label>
                   {/* disable time before now */}
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    placeholder="Pick-up Date"
-                    min={new Date().toISOString().split(".")[0]}
-                    onChange={(e) => setJourneyDate(e.target.value)}
-                    defaultValue={
-                      new Date(data?.journeyDate).toISOString().split(".")[0]
-                    }
-                  />
+                  <div className="d-flex">
+                    {/* Date input */}
+                    <input
+                      type="date"
+                      className="form-control me-2"
+                      placeholder="Date"
+                      min={new Date().toISOString().split("T")[0]}
+                      onChange={(e) => setJourneyDate(prev => {
+                        return e.target.value + "T" + prev.split("T")[1];
+                      })}
+                      defaultValue={
+                        new Date(data?.journeyDate).toISOString().split("T")[0]
+                      }
+                    />
+                    {/* Time input */}
+                    <input
+                      type="time"
+                      className="form-control"
+                      placeholder="Time"
+                      onChange={(e) => setJourneyDate(prev => {
+                        return prev.split("T")[0] + "T" + e.target.value;
+                      })}
+                      defaultValue={
+                        new Date(data?.journeyDate).toISOString().split("T")[1].substring(0, 5)
+                      }
+                    />
+                  </div>
                 </div>
               </div>
               <div className="mb-3 col-md-2">
