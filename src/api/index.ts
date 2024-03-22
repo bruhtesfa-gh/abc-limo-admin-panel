@@ -1,5 +1,5 @@
 import * as ax from "axios";
-export const BASE_URL = "https://abc-limo-server.onrender.com";
+export const BASE_URL = "https://abc-limo-server.watemtrade.com";
 let axios = ax.default.create({
   baseURL: BASE_URL,
   withCredentials: true,
