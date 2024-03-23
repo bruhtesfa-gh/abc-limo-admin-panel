@@ -223,7 +223,7 @@ function Booking() {
                   <h5 className="fw-bold py-3 mb-2">Customer Detail</h5>
                   {customer.map(({ title, key }) => {
                     return (
-                      <DetailRow key={key} title={title} value={data[key]} />
+                      <DetailRow key={key} title={title} value={key === "journeyDate" ? new Date(data[key]).toLocaleString() : data[key]} />
                     );
                   })}
                 </div>
