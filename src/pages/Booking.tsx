@@ -110,8 +110,6 @@ function Booking() {
       if (Object.keys(updateData).length === 0) {
         return;
       }
-      console.log(updateData);
-      return;
       const response = await axios.patch(`${BASE_URL}/book/${id}`, updateData, {
         withCredentials: true,
       });
@@ -192,7 +190,7 @@ function Booking() {
                         return e.target.value + "T" + prev.split("T")[1];
                       })}
                       defaultValue={
-                        new Date(data?.journeyDate).toISOString().split("T")[0]
+                        moment(data?.journeyDate).tz("America/Los_Angeles").format('YYYY-MM-DD')
                       }
                     />
                     {/* Time input */}
@@ -204,7 +202,7 @@ function Booking() {
                         return prev.split("T")[0] + "T" + e.target.value;
                       })}
                       defaultValue={
-                        new Date(data?.journeyDate).toISOString().split("T")[1].substring(0, 5)
+                        moment(data?.journeyDate).tz("America/Los_Angeles").format('HH:mm')
                       }
                     />
                   </div>
