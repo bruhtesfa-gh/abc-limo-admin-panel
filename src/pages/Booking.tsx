@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL, getReservation, updateReservation } from "../api";
 import { FullScreenSpinner } from "../components/Spinner";
 import axios from "axios";
+import moment from "moment-timezone";
 type Status = "PENDING" | "COMPLETED" | "REJECTED";
 
 const statusList = ["PENDING", "COMPLETED", "REJECTED"];
@@ -222,8 +223,11 @@ function Booking() {
                 <div className="col">
                   <h5 className="fw-bold py-3 mb-2">Customer Detail</h5>
                   {customer.map(({ title, key }) => {
+                    if (key === "journeyDate") {
+                      data[key] = moment(data[key]).tz("America/Los_Angeles").format('ddd MMM DD YYYY hh:mm A z');
+                    }
                     return (
-                      <DetailRow key={key} title={title} value={key === "journeyDate" ? new Date(data[key]).toLocaleString() : data[key]} />
+                      <DetailRow key={key} title={title} value={data[key]} />
                     );
                   })}
                 </div>
